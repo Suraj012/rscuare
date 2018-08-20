@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		010C4BC8ACB758746D83751B /* Pods_Rscuare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D353D1F82DC3596A5A81BDF1 /* Pods_Rscuare.framework */; };
+		4406A5972129BFFB00BD4588 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4406A5962129BFF900BD4588 /* GoogleService-Info.plist */; };
+		4406A5992129C11400BD4588 /* EmotionClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4406A5982129C11400BD4588 /* EmotionClass.swift */; };
+		440C96062125F16900D7ED55 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440C96052125F16900D7ED55 /* SwiftyJSON.swift */; };
+		440C96092125F45C00D7ED55 /* PieChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440C96082125F45C00D7ED55 /* PieChartCell.swift */; };
+		440C960B2125F46D00D7ED55 /* BarChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440C960A2125F46D00D7ED55 /* BarChartCell.swift */; };
+		440C960E2125F4E400D7ED55 /* PersonalityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440C960D2125F4E400D7ED55 /* PersonalityModel.swift */; };
 		4412A6B52125C5E2007128FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4412A6B42125C5E2007128FA /* AppDelegate.swift */; };
 		4412A6B72125C5E3007128FA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4412A6B62125C5E3007128FA /* ViewController.swift */; };
 		4412A6BA2125C5E3007128FA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4412A6B82125C5E3007128FA /* Main.storyboard */; };
@@ -14,6 +21,10 @@
 		4412A6BF2125C5E6007128FA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4412A6BD2125C5E6007128FA /* LaunchScreen.storyboard */; };
 		4412A6CA2125C5E7007128FA /* RscuareTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4412A6C92125C5E7007128FA /* RscuareTests.swift */; };
 		4412A6D52125C5E7007128FA /* RscuareUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4412A6D42125C5E7007128FA /* RscuareUITests.swift */; };
+		4412A6EA2125DF6E007128FA /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4412A6E92125DF6E007128FA /* Connection.swift */; };
+		4412A6EC2125DF7B007128FA /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4412A6EB2125DF7B007128FA /* Toast.swift */; };
+		4452B9DF2129A51A007FA55B /* Pref.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4452B9DE2129A51A007FA55B /* Pref.swift */; };
+		8E11C23D8953DD7250BAFEB4 /* Pods_RscuareTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7D216D7F6BA22028DDAAB3 /* Pods_RscuareTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +45,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		376B143F4EA6172A4110832B /* Pods-Rscuare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rscuare.release.xcconfig"; path = "Pods/Target Support Files/Pods-Rscuare/Pods-Rscuare.release.xcconfig"; sourceTree = "<group>"; };
+		4406A5962129BFF900BD4588 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		4406A5982129C11400BD4588 /* EmotionClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionClass.swift; sourceTree = "<group>"; };
+		440C96052125F16900D7ED55 /* SwiftyJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		440C96082125F45C00D7ED55 /* PieChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartCell.swift; sourceTree = "<group>"; };
+		440C960A2125F46D00D7ED55 /* BarChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartCell.swift; sourceTree = "<group>"; };
+		440C960D2125F4E400D7ED55 /* PersonalityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalityModel.swift; sourceTree = "<group>"; };
 		4412A6B12125C5E2007128FA /* Rscuare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rscuare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4412A6B42125C5E2007128FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4412A6B62125C5E3007128FA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +65,14 @@
 		4412A6D02125C5E7007128FA /* RscuareUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RscuareUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4412A6D42125C5E7007128FA /* RscuareUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RscuareUITests.swift; sourceTree = "<group>"; };
 		4412A6D62125C5E7007128FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4412A6E92125DF6E007128FA /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
+		4412A6EB2125DF7B007128FA /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		4452B9DE2129A51A007FA55B /* Pref.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pref.swift; sourceTree = "<group>"; };
+		70497D1ACDEA80201899EC39 /* Pods-RscuareTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RscuareTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RscuareTests/Pods-RscuareTests.release.xcconfig"; sourceTree = "<group>"; };
+		82B7640EC2275832F0887043 /* Pods-RscuareTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RscuareTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RscuareTests/Pods-RscuareTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C7533D55FF544A8DC211AC8A /* Pods-Rscuare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rscuare.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rscuare/Pods-Rscuare.debug.xcconfig"; sourceTree = "<group>"; };
+		D353D1F82DC3596A5A81BDF1 /* Pods_Rscuare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rscuare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF7D216D7F6BA22028DDAAB3 /* Pods_RscuareTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RscuareTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				010C4BC8ACB758746D83751B /* Pods_Rscuare.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E11C23D8953DD7250BAFEB4 /* Pods_RscuareTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +102,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		440C96072125F41500D7ED55 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				440C96082125F45C00D7ED55 /* PieChartCell.swift */,
+				440C960A2125F46D00D7ED55 /* BarChartCell.swift */,
+			);
+			name = Cell;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		440C960C2125F4D100D7ED55 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				440C960D2125F4E400D7ED55 /* PersonalityModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		4412A6A82125C5E2007128FA = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +127,8 @@
 				4412A6C82125C5E7007128FA /* RscuareTests */,
 				4412A6D32125C5E7007128FA /* RscuareUITests */,
 				4412A6B22125C5E2007128FA /* Products */,
+				83AEB1EB0DA483EA93C659E4 /* Pods */,
+				A9DC2C23F3454EDDD0DEE3AB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -97,12 +145,17 @@
 		4412A6B32125C5E2007128FA /* Rscuare */ = {
 			isa = PBXGroup;
 			children = (
+				4406A5962129BFF900BD4588 /* GoogleService-Info.plist */,
+				4452B9DD2129A4F3007FA55B /* Utils */,
+				440C960C2125F4D100D7ED55 /* Model */,
+				440C96072125F41500D7ED55 /* Cell */,
 				4412A6B42125C5E2007128FA /* AppDelegate.swift */,
 				4412A6B62125C5E3007128FA /* ViewController.swift */,
 				4412A6B82125C5E3007128FA /* Main.storyboard */,
 				4412A6BB2125C5E6007128FA /* Assets.xcassets */,
 				4412A6BD2125C5E6007128FA /* LaunchScreen.storyboard */,
 				4412A6C02125C5E6007128FA /* Info.plist */,
+				4406A5982129C11400BD4588 /* EmotionClass.swift */,
 			);
 			path = Rscuare;
 			sourceTree = "<group>";
@@ -125,6 +178,37 @@
 			path = RscuareUITests;
 			sourceTree = "<group>";
 		};
+		4452B9DD2129A4F3007FA55B /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				4412A6E92125DF6E007128FA /* Connection.swift */,
+				4412A6EB2125DF7B007128FA /* Toast.swift */,
+				440C96052125F16900D7ED55 /* SwiftyJSON.swift */,
+				4452B9DE2129A51A007FA55B /* Pref.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		83AEB1EB0DA483EA93C659E4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C7533D55FF544A8DC211AC8A /* Pods-Rscuare.debug.xcconfig */,
+				376B143F4EA6172A4110832B /* Pods-Rscuare.release.xcconfig */,
+				82B7640EC2275832F0887043 /* Pods-RscuareTests.debug.xcconfig */,
+				70497D1ACDEA80201899EC39 /* Pods-RscuareTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		A9DC2C23F3454EDDD0DEE3AB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D353D1F82DC3596A5A81BDF1 /* Pods_Rscuare.framework */,
+				DF7D216D7F6BA22028DDAAB3 /* Pods_RscuareTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -132,9 +216,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4412A6D92125C5E7007128FA /* Build configuration list for PBXNativeTarget "Rscuare" */;
 			buildPhases = (
+				A2CC5350F7708EEDB8ED13D7 /* [CP] Check Pods Manifest.lock */,
 				4412A6AD2125C5E2007128FA /* Sources */,
 				4412A6AE2125C5E2007128FA /* Frameworks */,
 				4412A6AF2125C5E2007128FA /* Resources */,
+				EF3BEA713495F3900EF344A0 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -149,6 +235,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4412A6DC2125C5E7007128FA /* Build configuration list for PBXNativeTarget "RscuareTests" */;
 			buildPhases = (
+				5EE2C2451D0566EEA1EB8D18 /* [CP] Check Pods Manifest.lock */,
 				4412A6C12125C5E7007128FA /* Sources */,
 				4412A6C22125C5E7007128FA /* Frameworks */,
 				4412A6C32125C5E7007128FA /* Resources */,
@@ -230,6 +317,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4412A6BF2125C5E6007128FA /* LaunchScreen.storyboard in Resources */,
+				4406A5972129BFFB00BD4588 /* GoogleService-Info.plist in Resources */,
 				4412A6BC2125C5E6007128FA /* Assets.xcassets in Resources */,
 				4412A6BA2125C5E3007128FA /* Main.storyboard in Resources */,
 			);
@@ -251,13 +339,88 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5EE2C2451D0566EEA1EB8D18 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RscuareTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A2CC5350F7708EEDB8ED13D7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Rscuare-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EF3BEA713495F3900EF344A0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Rscuare/Pods-Rscuare-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/JSONModel/JSONModel.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSONModel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Rscuare/Pods-Rscuare-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		4412A6AD2125C5E2007128FA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				4412A6B72125C5E3007128FA /* ViewController.swift in Sources */,
+				4412A6EC2125DF7B007128FA /* Toast.swift in Sources */,
+				4406A5992129C11400BD4588 /* EmotionClass.swift in Sources */,
+				4412A6EA2125DF6E007128FA /* Connection.swift in Sources */,
+				4452B9DF2129A51A007FA55B /* Pref.swift in Sources */,
+				440C96062125F16900D7ED55 /* SwiftyJSON.swift in Sources */,
+				440C960E2125F4E400D7ED55 /* PersonalityModel.swift in Sources */,
+				440C960B2125F46D00D7ED55 /* BarChartCell.swift in Sources */,
 				4412A6B52125C5E2007128FA /* AppDelegate.swift in Sources */,
+				440C96092125F45C00D7ED55 /* PieChartCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,40 +591,63 @@
 		};
 		4412A6DA2125C5E7007128FA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C7533D55FF544A8DC211AC8A /* Pods-Rscuare.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = (
+					"<Multiple",
+					"values>",
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Rscuare/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[arch=*]" = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = rscuare.Rscuare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		4412A6DB2125C5E7007128FA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 376B143F4EA6172A4110832B /* Pods-Rscuare.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = (
+					"<Multiple",
+					"values>",
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Rscuare/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[arch=*]" = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(inherited)@executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = rscuare.Rscuare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
 		4412A6DD2125C5E7007128FA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 82B7640EC2275832F0887043 /* Pods-RscuareTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -482,6 +668,7 @@
 		};
 		4412A6DE2125C5E7007128FA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 70497D1ACDEA80201899EC39 /* Pods-RscuareTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
