@@ -39,9 +39,9 @@ class ViewController: UITableViewController {
 //        var emotionTimer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(ViewController.checkEmotionStatus), userInfo: nil, repeats: true)
         
         var frame = spinner.frame
-        frame.origin.x = (self.view.frame.size.width / 2 - frame.size.width / 2);
-        frame.origin.y = (self.view.frame.size.height / 2.5 - frame.size.height / 2);
-        spinner.frame = frame;
+        frame.origin.x = (self.view.frame.size.width / 2 - frame.size.width / 2)
+        frame.origin.y = (self.view.frame.size.height / 2.5 - frame.size.height / 2)
+        spinner.frame = frame
         self.view.addSubview(spinner)
         //        spinner.startAnimating()
         loadData()
@@ -70,7 +70,13 @@ class ViewController: UITableViewController {
                 self.spinner.stopAnimating()
                 self.refreshSwipe.endRefreshing()
             } else {
-                print("Error here")
+//                Alert().showAlertWithMultipleActions(self, msg: "Something went wrong.", title: "Error", actionTitleFirst: "Ok", actionTitleSecond: "Cancel", cancelAction: {() in
+//                   //cancel action here
+//                }){
+//                    //ok action here
+//                }
+                Alert().showAlert(self, msg: "Something went wrong, please try again later.", okAction:{() in
+                })
             }
         }
     }

@@ -23,6 +23,7 @@
 		4412A6D52125C5E7007128FA /* RscuareUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4412A6D42125C5E7007128FA /* RscuareUITests.swift */; };
 		4412A6EA2125DF6E007128FA /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4412A6E92125DF6E007128FA /* Connection.swift */; };
 		4412A6EC2125DF7B007128FA /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4412A6EB2125DF7B007128FA /* Toast.swift */; };
+		443351822132587400BF223E /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443351812132587400BF223E /* Alert.swift */; };
 		4452B9DF2129A51A007FA55B /* Pref.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4452B9DE2129A51A007FA55B /* Pref.swift */; };
 		44913A76212DF4E2001479E2 /* DetailViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44913A75212DF4E2001479E2 /* DetailViewCell.swift */; };
 		8E11C23D8953DD7250BAFEB4 /* Pods_RscuareTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7D216D7F6BA22028DDAAB3 /* Pods_RscuareTests.framework */; };
@@ -68,6 +69,7 @@
 		4412A6D62125C5E7007128FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4412A6E92125DF6E007128FA /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
 		4412A6EB2125DF7B007128FA /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		443351812132587400BF223E /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		4452B9DE2129A51A007FA55B /* Pref.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pref.swift; sourceTree = "<group>"; };
 		44913A75212DF4E2001479E2 /* DetailViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewCell.swift; sourceTree = "<group>"; };
 		70497D1ACDEA80201899EC39 /* Pods-RscuareTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RscuareTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RscuareTests/Pods-RscuareTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				4412A6EB2125DF7B007128FA /* Toast.swift */,
 				440C96052125F16900D7ED55 /* SwiftyJSON.swift */,
 				4452B9DE2129A51A007FA55B /* Pref.swift */,
+				443351812132587400BF223E /* Alert.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -420,6 +423,7 @@
 				44913A76212DF4E2001479E2 /* DetailViewCell.swift in Sources */,
 				4412A6EA2125DF6E007128FA /* Connection.swift in Sources */,
 				4452B9DF2129A51A007FA55B /* Pref.swift in Sources */,
+				443351822132587400BF223E /* Alert.swift in Sources */,
 				440C96062125F16900D7ED55 /* SwiftyJSON.swift in Sources */,
 				440C960E2125F4E400D7ED55 /* PersonalityModel.swift in Sources */,
 				440C960B2125F46D00D7ED55 /* BarChartCell.swift in Sources */,
