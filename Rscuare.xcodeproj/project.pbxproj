@@ -24,6 +24,7 @@
 		4412A6EA2125DF6E007128FA /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4412A6E92125DF6E007128FA /* Connection.swift */; };
 		4412A6EC2125DF7B007128FA /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4412A6EB2125DF7B007128FA /* Toast.swift */; };
 		4452B9DF2129A51A007FA55B /* Pref.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4452B9DE2129A51A007FA55B /* Pref.swift */; };
+		44913A76212DF4E2001479E2 /* DetailViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44913A75212DF4E2001479E2 /* DetailViewCell.swift */; };
 		8E11C23D8953DD7250BAFEB4 /* Pods_RscuareTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7D216D7F6BA22028DDAAB3 /* Pods_RscuareTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +69,7 @@
 		4412A6E92125DF6E007128FA /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
 		4412A6EB2125DF7B007128FA /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		4452B9DE2129A51A007FA55B /* Pref.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pref.swift; sourceTree = "<group>"; };
+		44913A75212DF4E2001479E2 /* DetailViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewCell.swift; sourceTree = "<group>"; };
 		70497D1ACDEA80201899EC39 /* Pods-RscuareTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RscuareTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RscuareTests/Pods-RscuareTests.release.xcconfig"; sourceTree = "<group>"; };
 		82B7640EC2275832F0887043 /* Pods-RscuareTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RscuareTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RscuareTests/Pods-RscuareTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C7533D55FF544A8DC211AC8A /* Pods-Rscuare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rscuare.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rscuare/Pods-Rscuare.debug.xcconfig"; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 			children = (
 				440C96082125F45C00D7ED55 /* PieChartCell.swift */,
 				440C960A2125F46D00D7ED55 /* BarChartCell.swift */,
+				44913A75212DF4E2001479E2 /* DetailViewCell.swift */,
 			);
 			name = Cell;
 			path = "New Group";
@@ -414,6 +417,7 @@
 				4412A6B72125C5E3007128FA /* ViewController.swift in Sources */,
 				4412A6EC2125DF7B007128FA /* Toast.swift in Sources */,
 				4406A5992129C11400BD4588 /* EmotionClass.swift in Sources */,
+				44913A76212DF4E2001479E2 /* DetailViewCell.swift in Sources */,
 				4412A6EA2125DF6E007128FA /* Connection.swift in Sources */,
 				4452B9DF2129A51A007FA55B /* Pref.swift in Sources */,
 				440C96062125F16900D7ED55 /* SwiftyJSON.swift in Sources */,
@@ -610,6 +614,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(inherited)";
+				"PODS_CONFIGURATION_BUILD_DIR[arch=*]" = "${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				PRODUCT_BUNDLE_IDENTIFIER = rscuare.Rscuare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
