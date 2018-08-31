@@ -9,8 +9,27 @@
 import UIKit
 import Alamofire
 import FirebaseDatabase
+import Charts
 
-class ViewController: UITableViewController {
+class ViewController: UIViewController, ChartViewDelegate {
+    @IBOutlet weak var minLabel: UILabel!
+    @IBOutlet weak var maxLabel: UILabel!
+    @IBOutlet var chartView: PieChartView!
+    var prediction = [String]()
+    var predictionValue = [Double]()
+    var dictValue = [String: Double]()
+    
+    public var emotionHappy = String()
+    public var emotionNeutral = String()
+    public var emotionSad = String()
+    public var emotionAnger = String()
+    public var emotionHate = String()
+    
+    public var happy = Double()
+    public var neutral = Double()
+    public var sad = Double()
+    public var anger = Double()
+    public var hate = Double()
     
     var ref: DatabaseReference!
     
@@ -28,53 +47,90 @@ class ViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getFirebaseEmotionData()
-        self.tableView.backgroundColor = UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 1)
-        self.tableView.addSubview(self.refreshSwipe)
-        
-//        let viewController:UIViewController = UIStoryboard(name: "Setting", bundle: nil).instantiateViewController(withIdentifier: "setting_view") as UIViewController
-//        let navController = UINavigationController(rootViewController: viewController)
-//        self.present(navController, animated: true, completion: nil)
-        
-//        var emotionTimer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(ViewController.checkEmotionStatus), userInfo: nil, repeats: true)
-        
+        chartView.delegate = self        
         var frame = spinner.frame
         frame.origin.x = (self.view.frame.size.width / 2 - frame.size.width / 2)
         frame.origin.y = (self.view.frame.size.height / 2.5 - frame.size.height / 2)
         spinner.frame = frame
         self.view.addSubview(spinner)
-        //        spinner.startAnimating()
-        loadData()
+        loadKey()
+        spinner.startAnimating()
     }
     
     func loadData(){
-        let token = "ewogICJ0eXBlIjogInNlcnZpY2VfYWNjb3VudCIsCiAgInByb2plY3RfaWQiOiAicGVyc29uYWxpdHktbXBlcmNlcHQtMTQ2YzYiLAogICJwcml2YXRlX2tleV9pZCI6ICIxZDhiMWE1YjYwZGE4MzdlZTA5NmU4OTMxMTljNTA5YmQyYWYxYjJlIiwKICAicHJpdmF0ZV9rZXkiOiAiLS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tXG5NSUlFdlFJQkFEQU5CZ2txaGtpRzl3MEJBUUVGQUFTQ0JLY3dnZ1NqQWdFQUFvSUJBUUNrd1RZRk1GM0pGSlhyXG4zVlJQN0hlNEdNS2tsdXEvOER4RUJQNnM0T3NsSWkxMEo3ZXJGMUVnQnE2R3F4L3JRUkF5bU9VY1dsZ0tIRVFaXG5iT3NaSitrdmZ4QjlTbzNHekNHM0lxakxNcTJxd1RndUREVWhIWVBZYjg4QTIyK280N0NnZjNRcERBSHZGQ3ZSXG5nRHE2VVRSTFlVUlBTT2V0UjVuME5QdXBHTkQzTDF3MCtoTDNCeWU5TXBkSlFKcnR2dU5pa3h3YWhtaU94b3N3XG5hRTFabng1WmVtOVJmcGtTWkh4aEZ2SFUwQUdGZDhQSi90OXJseFNuS3hYcUc5Vk5hWHBYcU1XdlQyTGZDQ1FBXG5RQno0anQ3NC84bzAzRStWN3VRVnRPUTZWTlZDdkUxQ0JGUm1nYlVjQ200OWpLNXN4ZDVub3p6ZHExckVzcnZoXG5KeGEwS0RLbkFnTUJBQUVDZ2dFQU5EWjlLYmpSeUJPTGpiUFhiL3JYV0JNVXdIZUpqdW1TRjlaalphTmtNaUQ2XG5PYmtLbHFDdGw1STJoancrUWQ2ZFJRTzZmRGxQZEdqUDFpVHovc1ZzdTU0dnVoMUNBRElhTDBFL01DSnY4bEVJXG52bU1sQlVrbXl4Vm9DM1AvbDQwTklWZ3pGbjBWTWRENU1BeE0wRlpDMWU3TjZMaUluNXcwK0xVLzJpK2dyZTBrXG5jbnZ0V2dYMkZiMnorRmFaNm9BWS9UVG9kNC9Pd3I5NDRIeUliTkg0R0p1R1RTLzF5bmRrZ2FYdUpqck9wOEUyXG45Q2RWMkdkaW0zVkxHVFo1ajRNbVdYbUtNY0ozVzM5VERoZmdMTFQ5YXZQS2pSOEkvZEpSSkpyajNPTUhwUVBRXG4rZ0dVQ0d2ZVpHTWxCb2RKTVFLRlFLb0tGNWJZak9aaW1kQzRuQWUyOFFLQmdRRGNkNWZVbzBlMVp6WEpJazE4XG5hU3ZFTFZsOHRNZzN3K2pPWFRCTHpXR05PMGJLYTMzMHNqUlJOOVVGYUo2cXBoSzdlYkx4RnBQaWRBWFdqUVV2XG4zR0JpcjdJVHZvUmhROS85ZTltTmNrQUF2T2xNTEMrQWFLTzk4dTY3TkMzeWMwYmlNdWwwcXE0RmNGY2FGZWh6XG5VRlNDVG92N2JzWXRKL0VxYklTYnhkdzg4UUtCZ1FDL1R2QzJmZHh5cER2dDJPdW9zMlp0eGxadEFwUXBjNmIvXG5VU0k5WmJyZGo3b0tEQmVSZXpLajUyT3ZzUTBZeXd2aVFObE91cHhtS1RaUDFLMmxWa0ZVbGtWNUh3eXpmNGJCXG5tRWJiQUIyTkdlQUg1NkovVlJiekpTVjRPZHFJbkNEazlQU0hMRTZRWnpyOHVFcjZNWjJwVjJBZzUyWWFuWVBVXG5FdXNQdDk1SkZ3S0JnUUNqU2dDdWdYRHZMczVyZG5pbG1NL05zVGtDWUhPYXVnT0lOUVU4WDVYTklRWkJqblB2XG45TDFER25Nd1dsaUtWQTZ6eEdPQXBSUkxPVnZKbVJFcWJiTUY1Tk9rUkF1UWJ0RkwwWnRFWkVaN1JYQVY5dlFIXG55M2piaXo2K2NOdEhJNUp3bnZ6Q2FGZ1R0eTBNS1FYTndzV1U3ZEJJSGJleVlrOEErUGNPMlBGU1FRS0JnRXlYXG5VQ3ZmeStoaDlGUlBLbG9LS1JIOS9BLzhubERTS3FQQldkSDI3bzlSd1l2UU40ZFpLWGNSWm9tcWVySFlhTk9XXG5YdW4wTURWK2ZtNExtZEc5N0wzdXc3V3dScWQrZ1BiMC9qa2puTEVuRU5oWlZtZGdLNllBMHpXRkJBYjVhdm4vXG5ULzdtTURZRC9rdTdoTmtTRUNzQi9reHVHQ1REdDBtcW9VMVRzYnpWQW9HQUFMTGdVTUtuaWFMTG5qeUpWSDJ4XG55YzBVc2FCWDJUeTVGM1pDRENOM0xGUDdMbDYwV1lmaFJxZWFxMWFrc25qazdzUk9SRTVaWTFIMjAwclVtNTZuXG5kRlBRVEdDWkNGMk51L0NHMUU2U0V5b2dHTjdYZWc1VnhRVUQ0cUNZTjFwakpRNUxzaHpvKzZ4eVlVNi9LeHJMXG5jSEpZUjRiUHhFNGZ0RWtyaXdKK0V3OD1cbi0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS1cbiIsCiAgImNsaWVudF9lbWFpbCI6ICJmaXJlYmFzZS1hZG1pbnNkay11dno2Z0BwZXJzb25hbGl0eS1tcGVyY2VwdC0xNDZjNi5pYW0uZ3NlcnZpY2VhY2NvdW50LmNvbSIsCiAgImNsaWVudF9pZCI6ICIxMTYyNTA1ODk2NzM1NjE5OTkzMjEiLAogICJhdXRoX3VyaSI6ICJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20vby9vYXV0aDIvYXV0aCIsCiAgInRva2VuX3VyaSI6ICJodHRwczovL29hdXRoMi5nb29nbGVhcGlzLmNvbS90b2tlbiIsCiAgImF1dGhfcHJvdmlkZXJfeDUwOV9jZXJ0X3VybCI6ICJodHRwczovL3d3dy5nb29nbGVhcGlzLmNvbS9vYXV0aDIvdjEvY2VydHMiLAogICJjbGllbnRfeDUwOV9jZXJ0X3VybCI6ICJodHRwczovL3d3dy5nb29nbGVhcGlzLmNvbS9yb2JvdC92MS9tZXRhZGF0YS94NTA5L2ZpcmViYXNlLWFkbWluc2RrLXV2ejZnJTQwcGVyc29uYWxpdHktbXBlcmNlcHQtMTQ2YzYuaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20iCn0="
-        let connection = Connection(url: "https://010bc0fd.ngrok.io/predict/personality/hHI4wbT0v3fxuUlLL2oVMp4ZHMi2", parameters: [
+        let token = "ewogICJ0eXBlIjogInNlcnZpY2VfYWNjb3VudCIsCiAgInByb2plY3RfaWQiOiAici1zY3VhcmUtNWVkOGEiLAogICJwcml2YXRlX2tleV9pZCI6ICJiNjRhODU2NDc1NWMzNTNmMWI4NTQwNDkyMDQ0YWNiZDIxOTEwNTY3IiwKICAicHJpdmF0ZV9rZXkiOiAiLS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tXG5NSUlFdmdJQkFEQU5CZ2txaGtpRzl3MEJBUUVGQUFTQ0JLZ3dnZ1NrQWdFQUFvSUJBUURCZ2duMGR6Vzg3VXVOXG5NVUdTeThyR1hDYVdUZlVZUk9KVlFTSTNVQStBK0NyZlhlc2tNS2YrYkhSWllQTEQxazdoY0Q3SXQ2ZEYrRkpZXG5vb05NR0NhMEtDSXQ0TlB4NHBEWnV5eEtOSWhQV0R6QXVHdllqZEZvUWZDUjhNRndvSk14L3pWR0FkMVFaTUlKXG5yUXdCUWs0MXB4SkR1UEF1VTdUUTBuUFVhempSVW1UVmg4aGVFZ1FJekk4aER5WjU5MlpLYW5zZUJ0RzNXKzc0XG5QRldMK3JmbS93ZGFUdURaT2h0eUJtSVVLS2hwdDlkcWI1Y2NyVVM4TmFrNkRIL05taS9LVEkvdG0wRWdvQmNMXG45VmZJTGRhNllPTEI3TFJ2THNCbGJvNUoxWm5lcU9CMU5aUXJMclozRUZGR3R6NkptNGZLT1pQcU5yR0JmdWRWXG5kSUJ5MmJVL0FnTUJBQUVDZ2dFQUR6VEd6MzBtcmVmL3plS1hBcEFkS1NWSXF2c0pUWlRzTEVMb0MyeXhLek5WXG5PeVJJUEJuT3VjR1FDdzRCUmI1cmlHK25uMkkvTk5Ka3RpNWZIdld1NU8xYWNqeCtxejFnb0p1Q3lYb0RWQ2pjXG43VkFRdVgyN2ZQUGhrYlpYblNBaE1RYWJDeHRPWnVqa0RwcVluT2kyK0tSZVhSQUZYNzZZTU9pNHpYSjNqb3RGXG4rc0NtMVRBRVJmclkwWnhGSDAzR2VhbGluSlc3S2xTVzFBVXRyUWZSMXoxYjhPRnk3ejFMbDU5U3kvcUs1dEJmXG5TUjc2czdyZzN5YWo3V2dLMlE4S2dqalNqSHdXeFV6MnF5endFdHk2emw1SXJBNk41WGtyWHZuV21Hc1cvZTRtXG43RUh2VGpzdlczSTRuRWtRbWlXMlZLWnJQSnNVQkN5amF5eDRldWFXRVFLQmdRRG4xbTRDdmxxTUhiOG5xQkpTXG5jS3VmakM0cXZnT0xRWGlmZ21QOFR1d214NmtMR2xucXNac0x1V1NlMW9Uc0N2Zzh6U0piSnpmYWczcjVWQmVKXG4wQkpNR1hHZzRJSlF1Ulg4TE0vVkRtWGo4RUI5bHd1YWIvLzFlUDZzaXNYUk1nMHJ6UU5QVEdERW5IZTBaYjF5XG50WlJMTmh6cjlGL3c4ZEFRQ3hlMlN2Vlptd0tCZ1FEVnJQTlJhYkRWa2RHMnlQYnRIRmJzRFhwdnNXc3R6VW5BXG5rUzlCSzBsSGdEVlJWdHB0SDQ2ZHZrRFBUaE9KWnFOMnYvdzN2Mzd0MlZBTzF2SkRsS2FoZy9PbWdzYW9qbE5UXG4xTG90VmdaL25BckZGcUwzeTdzZzBDUngvUU92TERRUi9WckE3MkgvY1ZXQTBXSWo4NGNweFVsTTE4eVVwK2lGXG4rZkJ4RytpdkxRS0JnQmcyMkVTbkZ4UDlZMkxEOWkzd0lLeklXbVlTZEpKTjQwaGR1UTI0UElnTVlJYU5XUWpmXG5SZjlpZkxUdVdQSENiNDBDSysxeldpMFRnSHVjSWQwK0F6czVpUm14ZVVydkdmRzl5SE5MVHE4US85dGVORk1NXG5FYUxVNFZ5cUhlRXNwaDJHQ3l0MEljTkhTR1ZxSHZCbE1ManVUUFVFRUNVOVRHcndqYWgzaWNxekFvR0JBTTZtXG5RM1BiT2JCekpGVVlxdWJLWDY1UG9yZmU2SDhWYVZ5WmpSQUQ0dzBKaTRjczduWlc3TURXUFN2QW9OaGpzWGVwXG5XUzQ1UDNLY2x2YWpIdzRJOTlhQkhPVk8yUDR2RjV1ZHdxa1I1NXNHdU11L2hzRU1BZUJNTE5NcEZhVVdwUTA0XG43OHBrT1d5b21UN0tRWlh2Y2lzTnFFUnUrR1pVdFdiTlFLTERrUmZKQW9HQkFJc0RVZkFlZWZvMkFIZVkyU1FwXG56U28xR3hGRjIrcUtIbVZpcmJpL2tBa2ErSjRtWVdzSVkrWFZEbWtnWFppNHlRR1hZUCtVOGpsK3NaZnhHYkhwXG53QUUrUVZEUmhDVnBlaWhpcjhRRitEb2xuUFNwVlRsdGhlTWtUemwyeUxZYkNONlRNc0M4Q1BoZ1RUVGpJODdIXG5OdVVma3h5cmYxOTVJYjRnM1R6YTZwM2pcbi0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS1cbiIsCiAgImNsaWVudF9lbWFpbCI6ICJmaXJlYmFzZS1hZG1pbnNkay03NGhudUByLXNjdWFyZS01ZWQ4YS5pYW0uZ3NlcnZpY2VhY2NvdW50LmNvbSIsCiAgImNsaWVudF9pZCI6ICIxMDQxNjAyMzcxMTE5MjY3MTMxMTQiLAogICJhdXRoX3VyaSI6ICJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20vby9vYXV0aDIvYXV0aCIsCiAgInRva2VuX3VyaSI6ICJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20vby9vYXV0aDIvdG9rZW4iLAogICJhdXRoX3Byb3ZpZGVyX3g1MDlfY2VydF91cmwiOiAiaHR0cHM6Ly93d3cuZ29vZ2xlYXBpcy5jb20vb2F1dGgyL3YxL2NlcnRzIiwKICAiY2xpZW50X3g1MDlfY2VydF91cmwiOiAiaHR0cHM6Ly93d3cuZ29vZ2xlYXBpcy5jb20vcm9ib3QvdjEvbWV0YWRhdGEveDUwOS9maXJlYmFzZS1hZG1pbnNkay03NGhudSU0MHItc2N1YXJlLTVlZDhhLmlhbS5nc2VydmljZWFjY291bnQuY29tIgp9"
+        
+        let connection = Connection(url: "http://159.203.12.221:8000/predict/personality/oG7EZmjlh3Oz43wiCXjsEk1UTwh1", parameters: [
             "token": token
             ])
         connection.start { (result, success) -> Void in
             if success {
-                print("result \(result)")
-                let open_experience:Double = result["Open to new experiences"].doubleValue
-                let organization:Double = result["Organizational and Punctuality"].doubleValue
-                let sociability:Double = result["Sociability"].doubleValue
-                let trust:Double = result["Trustworthiness and Friendliness"].doubleValue
-                let calmness:Double = result["Calmness and even temperedness"].doubleValue
-                Pref.storeDouble(Pref.open_new_experience_guy, value: open_experience)
-                Pref.storeDouble(Pref.organizational_and_punctuality, value: organization)
-                Pref.storeDouble(Pref.sociability, value: sociability)
-                Pref.storeDouble(Pref.trustworthy_and_frendly, value: trust)
-                Pref.storeDouble(Pref.calmness, value: calmness)
+                let opn:Double = result[Pref.retrieveString(Pref.key_opn)].doubleValue
+                let con:Double = result[Pref.retrieveString(Pref.key_con)].doubleValue
+                let ext:Double = result[Pref.retrieveString(Pref.key_ext)].doubleValue
+                let agr:Double = result[Pref.retrieveString(Pref.key_agr)].doubleValue
+                let neu:Double = result[Pref.retrieveString(Pref.key_neu)].doubleValue
+                Pref.storeDouble(Pref.value_agr, value: agr)
+                Pref.storeDouble(Pref.value_con, value: con)
+                Pref.storeDouble(Pref.value_ext, value: ext)
+                Pref.storeDouble(Pref.value_neu, value: neu)
+                Pref.storeDouble(Pref.value_opn, value: opn)
                 self.isLoading = false
-                self.tableView.reloadData()
+//                self.tableView.reloadData()
                 self.spinner.stopAnimating()
                 self.refreshSwipe.endRefreshing()
+                self.initBarChart()
+                self.getFirebaseEmotionData()
             } else {
-//                Alert().showAlertWithMultipleActions(self, msg: "Something went wrong.", title: "Error", actionTitleFirst: "Ok", actionTitleSecond: "Cancel", cancelAction: {() in
-//                   //cancel action here
-//                }){
-//                    //ok action here
-//                }
+                self.isLoading = false
+                self.spinner.stopAnimating()
+                self.refreshSwipe.endRefreshing()
+                Alert().showAlert(self, msg: "Something went wrong, please try again later.", okAction:{() in
+                })
+            }
+        }
+    }
+    
+    func loadKey(){
+        let connection = Connection(url: "http://159.203.12.221:8000/configure/keywords", parameters: [
+            "token": ""
+            ])
+        connection.load { (result, success) -> Void in
+            if success {
+                print("here")
+                dump("Result \(result)")
+                let emotionValue = result["emotion"]
+                self.emotionHappy = emotionValue["happy"].stringValue
+                self.emotionNeutral = emotionValue["neutral"].stringValue
+                self.emotionAnger = emotionValue["angry"].stringValue
+                self.emotionHate = emotionValue["hate"].stringValue
+                self.emotionSad = emotionValue["sad"].stringValue
+                
+                let personalityValue = result["personality"]
+                dump("personality \(personalityValue)")
+                let ext = personalityValue["ext"].stringValue
+                let con = personalityValue["con"].stringValue
+                let opn = personalityValue["opn"].stringValue
+                let neu = personalityValue["neu"].stringValue
+                let agr = personalityValue["agr"].stringValue
+                
+                Pref.storeString(Pref.key_happy, value: self.emotionHappy)
+                Pref.storeString(Pref.key_hate, value: self.emotionHate)
+                Pref.storeString(Pref.key_anger, value: self.emotionAnger)
+                Pref.storeString(Pref.key_neutral, value: self.emotionNeutral)
+                Pref.storeString(Pref.key_sad, value: self.emotionSad)
+                
+                Pref.storeString(Pref.key_ext, value: ext)
+                Pref.storeString(Pref.key_con, value: con)
+                Pref.storeString(Pref.key_neu, value: neu)
+                Pref.storeString(Pref.key_agr, value: agr)
+                Pref.storeString(Pref.key_opn, value: opn)
+                self.loadData()
+            } else {
+                print("here here")
+                self.isLoading = false
+                self.spinner.stopAnimating()
+                self.refreshSwipe.endRefreshing()
                 Alert().showAlert(self, msg: "Something went wrong, please try again later.", okAction:{() in
                 })
             }
@@ -88,94 +144,10 @@ class ViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: - Table view data source
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 2
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 1
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let screenSize = UIScreen.main.bounds
-        let screenWidth = screenSize.width
-        let screenHeight = screenSize.height
-        if indexPath.section == 0 {
-            return screenHeight - 200
-        }else{
-            return 50
-        }
-    }
-    
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if(indexPath.section == 0){
-            let cell = tableView.dequeueReusableCell(withIdentifier: "personality_profile", for: indexPath) as! PieChartCell
-            return cell
-        }else{
-            let open_new_experience_guy = Pref.retrieveDouble(Pref.open_new_experience_guy)
-            let organizational_and_punctuality = Pref.retrieveDouble(Pref.organizational_and_punctuality)
-            let sociability = Pref.retrieveDouble(Pref.sociability)
-            let trustworthy_and_frendly = Pref.retrieveDouble(Pref.trustworthy_and_frendly)
-            let calmness = Pref.retrieveDouble(Pref.calmness)
-            let cell = tableView.dequeueReusableCell(withIdentifier: "character_profile", for: indexPath) as! DetailViewCell
-            if(open_new_experience_guy > organizational_and_punctuality && open_new_experience_guy > sociability && open_new_experience_guy > trustworthy_and_frendly && open_new_experience_guy > calmness){
-                cell.detailView.text = String(format: "%.0f", open_new_experience_guy*100) + "% Open to new experience guy"
-            } else if(organizational_and_punctuality > open_new_experience_guy && organizational_and_punctuality > sociability && organizational_and_punctuality > trustworthy_and_frendly && organizational_and_punctuality > calmness){
-                cell.detailView.text = String(format: "%.0f", organizational_and_punctuality*100) + "% Organizational and Punctuality"
-            } else if(sociability > open_new_experience_guy && sociability > organizational_and_punctuality && sociability > trustworthy_and_frendly && sociability > calmness) {
-                cell.detailView.text = String(format: "%.0f", sociability*100) + "% Sociability"
-            } else if(trustworthy_and_frendly > open_new_experience_guy && trustworthy_and_frendly > organizational_and_punctuality && trustworthy_and_frendly > sociability && trustworthy_and_frendly > calmness) {
-                cell.detailView.text = String(format: "%.0f", trustworthy_and_frendly*100) + "% Trustworthiness and Friendliness"
-            } else if(calmness > open_new_experience_guy && calmness > organizational_and_punctuality && calmness > sociability && calmness > trustworthy_and_frendly) {
-                cell.detailView.text = String(format: "%.0f", calmness*100) + "% Calmness and even temperedness"
-            }
-            return cell
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if(section == 0){
-            return ""
-        }else{
-            return ""
-        }
-    }
-    
-    
     @objc func handleRefresh(_ refreshSwipe: UIRefreshControl) {
         loadData()
         // Do some reloading of data and update the table view's data source
         // Fetch more objects from a web service, for example...
-    }
-    
-    func checkEmotionStatus()
-    {
-        getFirebaseEmotionData()
-        if(Pref.retrieveInt(Pref.emotion_prediction) == 0){
-            self.showToast(message: "Not Enough Data")
-        }else{
-            let happy = Pref.retrieveDouble(Pref.emotion_happy)
-            let sad = Pref.retrieveDouble(Pref.emotion_sad)
-            let neutral = Pref.retrieveDouble(Pref.emotion_neutral)
-            let hate = Pref.retrieveDouble(Pref.emotion_hate)
-            let anger = Pref.retrieveDouble(Pref.emotion_anger)
-            if(happy > sad && happy > neutral && happy > hate && happy > anger){
-                self.showToast(message: String(format: "%.0f", happy*100) + "% Happy")
-            } else if(sad > happy && sad > neutral && sad > hate && sad > anger){
-                self.showToast(message: String(format: "%.0f", sad*100) + "% Sad")
-            } else if(neutral > happy && neutral > sad && neutral > hate && neutral > anger){
-                self.showToast(message: String(format: "%.0f", neutral*100) + "% Neutral")
-            } else if(hate > happy && hate > sad && hate > neutral && hate > anger){
-                self.showToast(message: String(format: "%.0f", hate*100) + "% Hate")
-            }else if(anger > happy && anger > sad && anger > neutral && anger > hate){
-                self.showToast(message: String(format: "%.0f", anger*100) + "% Anger")
-            }
-        }
     }
     
     public func getFirebaseEmotionData(){
@@ -187,69 +159,151 @@ class ViewController: UITableViewController {
                 print("Error")
                 return
             }
-            let prediction = dict["prediction"] as? Int ?? 0
-            let reason = dict["reason"] as? String ?? ""
-            let timestamp = dict["timestamp"] as? Int ?? 0
-            let anger = dict["anger"] as? Double ?? 0.0
-            let happy = dict["happy"] as? Double ?? 0.0
-            let neutral = dict["neutral"] as? Double ?? 0.0
-            let hate = dict["hate"] as? Double ?? 0.0
-            let sad = dict["sad"] as? Double ?? 0.0
-            Pref.storeInt(Pref.emotion_fetch_time, value: timestamp)
-            Pref.storeInt(Pref.emotion_prediction, value: prediction)
-            Pref.storeString(Pref.emotion_reason, value: reason)
-            Pref.storeDouble(Pref.emotion_happy, value: happy)
-            Pref.storeDouble(Pref.emotion_hate, value: hate)
-            Pref.storeDouble(Pref.emotion_anger, value: anger)
-            Pref.storeDouble(Pref.emotion_neutral, value: neutral)
-            Pref.storeDouble(Pref.emotion_sad, value: sad)
-            
-            if(Pref.retrieveInt(Pref.emotion_prediction) == 0){
-                self.showToast(message: "Not Enough Data")
-            }else{
-                let happy = Pref.retrieveDouble(Pref.emotion_happy)
-                let sad = Pref.retrieveDouble(Pref.emotion_sad)
-                let neutral = Pref.retrieveDouble(Pref.emotion_neutral)
-                let hate = Pref.retrieveDouble(Pref.emotion_hate)
-                let anger = Pref.retrieveDouble(Pref.emotion_anger)
-                if(happy > sad && happy > neutral && happy > hate && happy > anger){
-                    self.showToast(message: String(format: "%.0f", happy*100) + "% Happy")
-                } else if(sad > happy && sad > neutral && sad > hate && sad > anger){
-                    self.showToast(message: String(format: "%.0f", sad*100) + "% Sad")
-                } else if(neutral > happy && neutral > sad && neutral > hate && neutral > anger){
-                    self.showToast(message: String(format: "%.0f", neutral*100) + "% Neutral")
-                } else if(hate > happy && hate > sad && hate > neutral && hate > anger){
-                    self.showToast(message: String(format: "%.0f", hate*100) + "% Hate")
-                }else if(anger > happy && anger > sad && anger > neutral && anger > hate){
-                    self.showToast(message: String(format: "%.0f", anger*100) + "% Anger")
-                }
-            }
-            
+                    let prediction = dict["prediction"] as? Int ?? 0
+                    let reason = dict["reason"] as? String ?? ""
+                    let timestamp = dict["timestamp"] as? Int ?? 0
+                    self.anger = dict["anger"] as? Double ?? 0.0
+                    self.happy = dict["happy"] as? Double ?? 0.0
+                    self.neutral = dict["neutral"] as? Double ?? 0.0
+                    self.hate = dict["hate"] as? Double ?? 0.0
+                    self.sad = dict["sad"] as? Double ?? 0.0
+                    Pref.storeInt(Pref.emotion_fetch_time, value: timestamp)
+                    Pref.storeInt(Pref.emotion_prediction, value: prediction)
+                    Pref.storeString(Pref.emotion_reason, value: reason)
+                    Pref.storeDouble(Pref.emotion_happy, value: self.happy)
+                    Pref.storeDouble(Pref.emotion_hate, value: self.hate)
+                    Pref.storeDouble(Pref.emotion_anger, value: self.anger)
+                    Pref.storeDouble(Pref.emotion_neutral, value: self.neutral)
+                    Pref.storeDouble(Pref.emotion_sad, value: self.sad)
+                    
+                    if(Pref.retrieveInt(Pref.emotion_prediction) != 0){
+                        self.showPopUp()
+                    }
             // ...
         }) { (error) in
             print(error.localizedDescription)
         }
+    }
+    
+    func initBarChart(){
+        self.setup(pieChartView: chartView)
+        self.setDataCount(5, range: 5)
         
     }
+    func setDataCount(_ count: Int, range: UInt32) {
+        //        let value = [20, 30, 40, 5, 5]
+        prediction.append(Pref.retrieveString(Pref.key_ext))
+        prediction.append(Pref.retrieveString(Pref.key_agr))
+        prediction.append(Pref.retrieveString(Pref.key_neu))
+        prediction.append(Pref.retrieveString(Pref.key_con))
+        prediction.append(Pref.retrieveString(Pref.key_opn))
+        
+        predictionValue.append(Pref.retrieveDouble(Pref.value_ext))
+        predictionValue.append(Pref.retrieveDouble(Pref.value_agr))
+        predictionValue.append(Pref.retrieveDouble(Pref.value_neu))
+        predictionValue.append(Pref.retrieveDouble(Pref.value_con))
+        predictionValue.append(Pref.retrieveDouble(Pref.value_opn))
+        dictValue = Dictionary(uniqueKeysWithValues: zip(prediction, predictionValue))
+        minLabel.text = HelperClass().getMinimumPrediction(dict: dictValue)
+        maxLabel.text = HelperClass().getMaximumPrediction(dict: dictValue)
+        
+        let entries = (0..<count).map { (i) -> PieChartDataEntry in
+            // IMPORTANT: In a PieChart, no values (Entry) should have the same xIndex (even if from different DataSets), since no values can be drawn above each other.
+            return PieChartDataEntry(value: Double(String(format: "%.0f", predictionValue[i]*100))!,
+                                     label: prediction[i],
+                                     data: nil)
+            //            return PieChartDataEntry(value: Double(value[i]), label: parties[i], data: nil)
+        }
+        
+        let set = PieChartDataSet(values: entries, label: "")
+        //        set.drawValuesEnabled = false
+        set.sliceSpace = 0
+        
+        
+        set.colors = ChartColorTemplates.vordiplom()
+            + ChartColorTemplates.joyful()
+            + ChartColorTemplates.colorful()
+            + ChartColorTemplates.liberty()
+            + ChartColorTemplates.pastel()
+            + [UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1)]
+        
+        chartView.data?.setValueTextColor(UIColor.clear)
+        
+        set.valueLinePart1OffsetPercentage = 0.8
+        set.valueLinePart1Length = 0.2
+        set.valueLinePart2Length = 0.3
+        //set.xValuePosition = .outsideSlice
+        //        set.yValuePosition = .outsideSlice
+        
+        
+        let data = PieChartData(dataSet: set)
+        
+        let pFormatter = NumberFormatter()
+        pFormatter.numberStyle = .percent
+        pFormatter.maximumFractionDigits = 1
+        pFormatter.multiplier = 1
+        pFormatter.percentSymbol = " %"
+        data.setValueFormatter(DefaultValueFormatter(formatter: pFormatter))
+        
+        data.setValueFont(.systemFont(ofSize: 16, weight: UIFontWeightMedium))
+        data.setValueTextColor(.black)
+        
+        chartView.data = data
+        chartView.highlightValues(nil)
+    }
+    
+    func setup(pieChartView chartView: PieChartView) {
+        chartView.usePercentValuesEnabled = false
+        chartView.drawSlicesUnderHoleEnabled = false
+        chartView.holeRadiusPercent = 0.58
+        chartView.transparentCircleRadiusPercent = 0.51
+        chartView.chartDescription?.enabled = false
+        chartView.drawCenterTextEnabled = true
+        
+        
+        chartView.highlightPerTapEnabled = false
+        chartView.usePercentValuesEnabled = false
+        chartView.drawEntryLabelsEnabled = false
+        
+        let paragraphStyle = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
+        paragraphStyle.lineBreakMode = .byTruncatingTail
+        paragraphStyle.alignment = .center
+        chartView.drawHoleEnabled = true
+        chartView.rotationAngle = 0
+        chartView.rotationEnabled = true
+        chartView.highlightPerTapEnabled = true
+        
+        let l = chartView.legend
+        chartView.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
+        l.font = UIFont.systemFont(ofSize: 12)
+        l.horizontalAlignment = .right
+        l.verticalAlignment = .top
+        l.orientation = .vertical
+        l.xEntrySpace = 0
+        l.yEntrySpace = 2
+        l.yOffset = 10
+        l.xOffset = 10
+        //        chartView.legend = l
+        
+        // entry label styling
+        //        chartView.entryLabelColor = .black
+        //        chartView.entryLabelFont = .systemFont(ofSize: 14, weight: UIFontWeightLight)
+        
+        chartView.animate(xAxisDuration: 1.4, easingOption: .easeOutBack)
+        //        chartView.legend = l
+    }
+    
 }
 
 extension UIViewController {
     
-    func showToast(message : String) {
-        
-        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: self.view.frame.size.height-115, width: 150, height: 35))
-        toastLabel.backgroundColor = UIColor.blue.withAlphaComponent(0.6)
-        toastLabel.textColor = UIColor.white
-        toastLabel.textAlignment = .center;
-        toastLabel.font = UIFont(name: "Montserrat-Light", size: 12.0)
-        toastLabel.text = message
-        toastLabel.alpha = 1.0
-        toastLabel.layer.cornerRadius = 10;
-        toastLabel.clipsToBounds  =  true
-        self.view.addSubview(toastLabel)
-        UIView.animate(withDuration: 20.0, delay: 0.1, options: .curveEaseOut, animations: {
-            toastLabel.alpha = 0.0
-        }, completion: {(isCompleted) in
-            toastLabel.removeFromSuperview()
-        })
-    } }
+    func showPopUp() {
+        let customAlert = self.storyboard?.instantiateViewController(withIdentifier: "emotionView") as! EmotionView
+        customAlert.providesPresentationContextTransitionStyle = true
+        customAlert.definesPresentationContext = true
+        customAlert.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        customAlert.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        self.present(customAlert, animated: true, completion: nil)
+    }
+    
+}

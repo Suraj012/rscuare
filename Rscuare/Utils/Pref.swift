@@ -8,12 +8,6 @@
 
 import Foundation
 class Pref {
-    internal static let open_new_experience_guy = "OPEN_NEW_EXPERIENCE_GUY"
-    internal static let organizational_and_punctuality = "ORGANIZATIONAL_AND_PUNCTUALITY"
-    internal static let sociability = "SOCIABILITY"
-    internal static let trustworthy_and_frendly = "TRUSTWORTHY_AND_FRENDLY"
-    internal static let calmness = "CALMNESS_AND_TEMPEREDNESS"
-    
     internal static let emotion_fetch_time = "EMOTION_FETCH_TIME"
     internal static let emotion_prediction = "EMOTION_PREDICTION"
     internal static let emotion_reason = "EMOTION_REASON"
@@ -22,6 +16,24 @@ class Pref {
     internal static let emotion_hate = "EMOTION_HATE"
     internal static let emotion_neutral = "EMOTION_NEUTRAL"
     internal static let emotion_sad = "EMOTION_SAD"
+    
+    internal static let key_anger = "KEY_ANGER"
+    internal static let key_happy = "KEY_HAPPY"
+    internal static let key_hate = "KEY_HATE"
+    internal static let key_neutral = "KEY_NEUTRAL"
+    internal static let key_sad = "KEY_SAD"
+    
+    internal static let key_ext = "KEY_EXT"
+    internal static let key_con = "KEY_CON"
+    internal static let key_opn = "KEY_OPN"
+    internal static let key_neu = "KEY_NEU"
+    internal static let key_agr = "KEY_AGR"
+    
+    internal static let value_ext = "VALUE_EXT"
+    internal static let value_con = "VALUE_CON"
+    internal static let value_opn = "VALUE_OPN"
+    internal static let value_neu = "VALUE_NEU"
+    internal static let value_agr = "VALUE_AGR"
     
     static func storeDouble(_ key:String, value:Double){
         let defaults = UserDefaults.standard

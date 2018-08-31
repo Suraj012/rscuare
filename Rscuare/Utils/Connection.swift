@@ -50,8 +50,24 @@ class Connection {
     
     
     func start(_ success : @escaping (_ result:JSON, _ success : Bool) -> Void ) {
-        let urll = self.url
         let myresponse = Alamofire.request(url, method: .post, parameters: self.parameters)
+        myresponse.responseJSON() {
+            (response) in
+            guard response.result.isSuccess else {
+                success(JSON.null, false)
+                return;
+                
+            }
+            
+            if let data = response.data {
+                let result = JSON(data: data)
+                success(result, true)
+            }
+            
+        }
+    }
+    func load(_ success : @escaping (_ result:JSON, _ success : Bool) -> Void ) {
+        let myresponse = Alamofire.request(url, method: .get, parameters: self.parameters)
         myresponse.responseJSON() {
             (response) in
             guard response.result.isSuccess else {

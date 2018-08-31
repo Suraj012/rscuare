@@ -11,5 +11,6 @@ import UIKit
 
 class DetailViewCell: UITableViewCell {
     
+    @IBOutlet weak var detailView1: UILabel!
     @IBOutlet weak var detailView: UILabel!
 }
